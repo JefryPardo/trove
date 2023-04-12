@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-navbar',
@@ -6,5 +7,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+
+  items: MenuItem[];
+
+  constructor() {
+
+    this.items = [
+      {
+        label: 'Item',
+        icon: 'pi pi-star',
+        routerLink: ['/item']
+      },
+      {
+        label: 'Itbuyem',
+        icon: 'pi pi-shopping-cart',
+        routerLink: ['/buy']
+      }
+    ];
+  }
 
 }

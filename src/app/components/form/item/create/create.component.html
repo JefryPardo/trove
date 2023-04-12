@@ -1,0 +1,32 @@
+<p-card header="Crear Item">
+    
+    <div class="formgrid grid" [formGroup]="formItem">
+    
+        <div class="field col-12 md:col-5">
+    
+            <input 
+                pInputText 
+                formControlName="nombre" 
+                placeholder="Nombre del item"
+                class="w-full" 
+            />
+        </div>
+    
+        <div class="field col-12 md:col-5">
+    
+            <p-dropdown 
+                class="flex flex-column" 
+                formControlName="tipo"
+                id="tipo" 
+                [options]="tipo" 
+                placeholder="Tipo de item"
+                optionLabel="nombre"
+            ></p-dropdown>
+        </div>
+
+        <div class="col-12 md:col-2 flex flex-wrap">
+    
+            <p-button (onClick)="crearItem()" class="col-12 w-full px-0" [style]="{'width':'100%'}" label="Crear"></p-button>
+        </div>
+    </div>
+</p-card>
