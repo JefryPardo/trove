@@ -9,26 +9,22 @@ import { FirebaseApiService } from 'src/app/service/firebase.api.service';
 })
 export class FindComponent {
 
-  item: Item[];
+  
   selectedItem: Item[];
   loading: boolean = true;
 
-  constructor(private trove: FirebaseApiService) {
+  constructor(public trove: FirebaseApiService ) {
 
     this.trove.getItems().subscribe(response => {
       
-      this.item = response;
+      this.trove.items = response;
       this.loading = false;
     });
   }
 
   deleteItem(item: any) {
 
-    console.log(item.id);
-    
     let id: string = item.id; 
-    console.log(id);
-    
     this.trove.deleteItem(id);
   }
 

@@ -19,7 +19,7 @@ export class NavbarComponent {
         routerLink: ['/item']
       },
       {
-        label: 'Itbuyem',
+        label: 'buy',
         icon: 'pi pi-shopping-cart',
         routerLink: ['/buy']
       }

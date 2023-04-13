@@ -8,10 +8,9 @@ import { Observable } from 'rxjs';
 })
 export class FirebaseApiService {
 
-  constructor(private firestore: Firestore) { 
+  items: Item[];
 
-
-  }
+  constructor(private firestore: Firestore) {}
 
   createItem(item: Item) {
 

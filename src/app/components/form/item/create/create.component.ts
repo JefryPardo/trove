@@ -22,8 +22,21 @@ export class CreateComponent {
     this.formItem = this.inicializarFormularioItem();
 
     this.tipo = [
-      { nombre: 'Montura' },
-      { nombre: 'Alas' }
+      { nombre: 'Allies' },
+      { nombre: 'Building' },
+      { nombre: 'Costumes' },
+      { nombre: 'Crafting' },
+      { nombre: 'Emblems' },
+      { nombre: 'Fishing Poles' },
+      { nombre: 'Flasks' },
+      { nombre: 'Items' },
+      { nombre: 'Mag Riders' },
+      { nombre: 'Mounts' },
+      { nombre: 'Recipes' },
+      { nombre: 'Sails' },
+      { nombre: 'Ships' },
+      { nombre: 'Tomes' },
+      { nombre: 'Wings' }
     ];
   }
 
@@ -41,11 +54,29 @@ export class CreateComponent {
     if(this.formItem.value.nombre == undefined) return;
     if(this.formItem.value.tipo.nombre == undefined) return;
     
+    if(!this.validarExistenciaItem()) return;
+    
     const item: Item  = {
-      nombre: this.formItem.value.nombre,
-      tipo:   this.formItem.value.tipo.nombre
+      nombre: this.formItem.value.nombre.trim(),
+      tipo:   this.formItem.value.tipo.nombre.trim()
     }
 
+    this.formItem.reset();
     await this.trove.createItem(item);
+  }
+
+  validarExistenciaItem() {
+
+    let bandera = true;
+    this.trove.items.forEach(element => {
+      
+      if(this.formItem.value.tipo.nombre.toUpperCase().trim() == element.tipo.toUpperCase().trim()  && this.formItem.value.nombre.toUpperCase().trim() == element.nombre.toUpperCase().trim()) {
+
+        bandera = false;
+        return;
+      } 
+    });
+
+    return bandera;
   }
 }
