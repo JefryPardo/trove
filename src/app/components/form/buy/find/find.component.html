@@ -21,14 +21,14 @@
 
 <p-table
     #dt
-    [value]="this.trove.items"
+    [value]="this.trove.buyItems"
     dataKey="id"
-    [(selection)]="selectedItem"
+    [(selection)]="selectedBuyItem"
     [rows]="5"
     [showCurrentPageReport]="true"
     [loading]="loading"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [globalFilterFields]="['name', 'nombre', 'tipo', 'status']"
+    [globalFilterFields]="['nombre', 'tipo']"
     [tableStyle]="{'min-width': '75rem'}"
     [scrollable]="true" 
     scrollHeight="400px"
@@ -53,23 +53,35 @@
     
     <ng-template pTemplate="header">
         <tr>
-            <th class="w-2">Nombre</th>
-            <th class="w-2">Tipo</th>
-            <th class="w-1" >Borrar</th>
+            <th class="w-2">Item</th>
+            <th class="w-2">Fecha compra</th>
+            <th class="w-2">Precio compra</th>
+            <th class="w-2">Cantidad</th>
+            <th class="w-2">Precio unidad</th>
+            <th class="w-1">Borrar</th>
         </tr>
     </ng-template>
     
     <ng-template pTemplate="body" let-item>
         <tr>
             <td>
-                {{ item.nombre }}
+                {{ item.item.nombre }}
             </td>
             <td>
-                {{ item.tipo }}
+                {{ trove.getFortmaroDate(item.fechaRegistro) }}
+            </td>
+            <td>
+                {{ item.precio }}
+            </td>
+            <td>
+                {{ item.cantidad }}
+            </td>
+            <td>
+                {{ item.precioUnidad }}
             </td>
             <td>
                 <p-button 
-                    (click)="deleteItem(item)" 
+                    (click)="deleteBuyItem(item)" 
                     icon="pi pi-trash" 
                     styleClass="p-button-raised p-button-danger"
                 ></p-button>

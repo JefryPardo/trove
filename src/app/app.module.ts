@@ -15,8 +15,11 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 
-import { CreateComponent } from './components/form/item/create/create.component';
-import { FindComponent } from './components/form/item/find/find.component';
+import { CreateItemComponent } from './components/form/item/create/create.component';
+import { FindItemComponent } from './components/form/item/find/find.component';
+
+import { CreateBuyItemComponent } from './components/form/buy/create/create.component';
+import { FindBuyItemComponent } from './components/form/buy/find/find.component';
 
 
 import { MenubarModule } from 'primeng/menubar';
@@ -28,7 +31,11 @@ import { TableModule } from 'primeng/table';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
-
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import { CalendarModule } from 'primeng/calendar';
+import { CreateSellItemComponent } from './components/form/sell/create/create.component';
+import { FindSellItemComponent } from './components/form/sell/find/find.component';
+import { FindInventoryComponent } from './components/form/inventory/find/find.component';
 
 @NgModule({
   declarations: [
@@ -39,9 +46,14 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     FlippingComponent,
     InventoryComponent,
     NavbarComponent,
-    FooterComponent,
-    CreateComponent,
-    FindComponent,
+    FooterComponent,    
+    CreateBuyItemComponent,
+    FindBuyItemComponent,    
+    CreateItemComponent,
+    FindItemComponent,
+    CreateSellItemComponent,
+    FindSellItemComponent,
+    FindInventoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +67,8 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     ButtonModule,
     InputTextModule,
     TableModule,
+    ConfirmDialogModule,
+    CalendarModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore())
   ],

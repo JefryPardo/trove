@@ -1,35 +1,38 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
-import { Item } from 'src/app/model/item';
+import { ConfirmationService } from 'primeng/api';
+import { SellItem } from 'src/app/model/sell.item';
 import { FirebaseApiService } from 'src/app/service/firebase.api.service';
 
 @Component({
-  selector: 'app-find-create',
+  selector: 'app-find-sell-item',
   templateUrl: './find.component.html',
   styleUrls: ['./find.component.css'],
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService]
 })
-export class FindItemComponent {
+export class FindSellItemComponent {
 
-  
-  selectedItem: Item[];
+  selectedSellItem: SellItem[];
   loading: boolean = true;
 
   formClave: FormGroup;
 
-  constructor(private confirmationService: ConfirmationService,private fb: FormBuilder,public trove: FirebaseApiService) {
+  constructor(
+    private confirmationService: ConfirmationService,
+    private fb: FormBuilder,
+    public trove: FirebaseApiService
+  ) {
 
     this.formClave = this.inicializarFormularioClave();
 
-    this.trove.getItems().subscribe(response => {
-      
-      this.trove.items = response;
+    this.trove.getSellItems().subscribe((response) => {
+
+      this.trove.sellItems = response;
       this.loading = false;
     });
   }
-  
-  deleteItem(item: any) {
+
+  deleteSellItem(item: any) {
 
     this.confirmationService.confirm({
       accept: () => {
@@ -39,14 +42,10 @@ export class FindItemComponent {
           this.formClave.reset();
 
           let id: string = item.id; 
-          this.trove.deleteItem(id);
+          this.trove.deleteSellItem(id);
         }
       },
-      reject: () => {
-          
-        console.log('Salir');
-        return;
-      }
+      reject: () => {return}
     });
   }
 
@@ -56,5 +55,4 @@ export class FindItemComponent {
       'clave':         new FormControl("", Validators.required)
     });
   }
-
 }

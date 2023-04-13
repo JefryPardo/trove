@@ -14,7 +14,7 @@ export class NavbarComponent {
 
     this.items = [
       {
-        label: 'Item',
+        label: 'item',
         icon: 'pi pi-star',
         routerLink: ['/item']
       },
@@ -22,6 +22,16 @@ export class NavbarComponent {
         label: 'buy',
         icon: 'pi pi-shopping-cart',
         routerLink: ['/buy']
+      },
+      {
+        label: 'sell',
+        icon: 'pi pi-money-bill',
+        routerLink: ['/sell']
+      },
+      {
+        label: 'inventory',
+        icon: 'pi pi-chart-bar',
+        routerLink: ['/inventory']
       }
     ];
   }

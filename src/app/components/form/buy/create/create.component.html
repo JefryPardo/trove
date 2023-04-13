@@ -1,0 +1,66 @@
+<p-card header="Registrar compra">
+    
+    <div class="formgrid grid" [formGroup]="formBuyItem">
+    
+        <div class="field col-12">
+                
+            <p-dropdown 
+                class="flex flex-column" 
+                formControlName="id_item"
+                [emptyFilterMessage]="'No se encontraron resultados'"
+                [(ngModel)]="selectedItem" 
+                [filter]="true" 
+                filterBy="nombre"
+                [showClear]="true" 
+                [options]="this.trove.items" 
+                placeholder="Item"
+                optionLabel="nombre"
+            >
+            </p-dropdown>
+
+        </div>
+
+        <div class="field col-12 md:col-6">
+            
+            <p-calendar
+                formControlName="fecha_registro" 
+                class="flex flex-column w-full" 
+                [(ngModel)]="hoy"
+            ></p-calendar>
+        </div>
+
+        <div class="field col-12 md:col-6">
+    
+            <input 
+                pInputText 
+                formControlName="precio" 
+                placeholder="Precio comprado"
+                class="w-full" 
+                type="number"
+            />
+        </div>
+
+        <div class="field col-12">
+    
+            <input 
+                pInputText 
+                type="number"
+                formControlName="cantidad" 
+                placeholder="Cantidad comprada"
+                class="w-full" 
+            />
+        </div>
+
+        <div class="col-12 flex flex-wrap">
+    
+            <p-button 
+                [style]="{'width':'100%'}" 
+                label="Crear Compra"
+                class="col-12 w-full px-0 p-button-success" 
+                (onClick)="crearBuyItem()"
+                styleClass="p-button-success"
+            ></p-button>
+        </div>
+
+    </div>
+</p-card>
