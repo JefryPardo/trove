@@ -63,16 +63,15 @@ export class CreateItemComponent {
     if(
       this.formItem.value.nombre == undefined       ||
       this.formItem.value.tipo.nombre == undefined  ||
-      this.formItem.value.nombre == ''              ||
-      this.formItem.value.tipo.nombre == ''         ||
-      this.formItem.value.nombre == null            ||
       this.formItem.value.tipo.nombre == null       ||
+      this.formItem.value.tipo.nombre == ''         ||
+      this.formItem.value.nombre == ''              ||
+      this.formItem.value.nombre == null            ||
       this.formItem.value.unidades == null          ||  
       this.formItem.value.unidades == null          ||
       this.formItem.value.unidades == undefined     ||
       this.formItem.value.unidades == undefined     ||
-      this.formItem.value.unidades == ''            ||
-      this.formItem.value.unidades == ''            ||
+      this.formItem.value.unidades.length <= 0       ||
       this.formItem.value.stock == null             ||
       this.formItem.value.stock == null             ||
       this.formItem.value.stock == undefined        ||
