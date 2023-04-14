@@ -36,6 +36,11 @@ import { CalendarModule } from 'primeng/calendar';
 import { CreateSellItemComponent } from './components/form/sell/create/create.component';
 import { FindSellItemComponent } from './components/form/sell/find/find.component';
 import { FindInventoryComponent } from './components/form/inventory/find/find.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { ToastModule } from 'primeng/toast';
+
+import { ToastService } from './service/toast.service';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -69,10 +74,12 @@ import { FindInventoryComponent } from './components/form/inventory/find/find.co
     TableModule,
     ConfirmDialogModule,
     CalendarModule,
+    InputNumberModule,
+    ToastModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore())
   ],
-  providers: [],
+  providers: [MessageService,ToastService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

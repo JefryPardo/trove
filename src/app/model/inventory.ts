@@ -1,8 +1,8 @@
 import { Item } from "./item";
 
 export interface Inventory {
-    id?: number;
+    id?: string;
     item: Item;
-    unidades: string;
-    stock_maximo: string;
+    unidades: number;
+    stock_maximo: number;
 }

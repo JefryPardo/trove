@@ -26,7 +26,7 @@
     [(selection)]="selectedBuyItem"
     [rows]="5"
     [showCurrentPageReport]="true"
-    [loading]="loading"
+    [loading]="loading()"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [globalFilterFields]="['nombre', 'tipo']"
     [tableStyle]="{'min-width': '75rem'}"
@@ -71,13 +71,13 @@
                 {{ trove.getFortmaroDate(item.fechaRegistro) }}
             </td>
             <td>
-                {{ item.precio }}
+                {{ item.precio | number }}
             </td>
             <td>
-                {{ item.cantidad }}
+                {{ item.cantidad | number }}
             </td>
             <td>
-                {{ item.precioUnidad }}
+                {{ item.precioUnidad | number }}
             </td>
             <td>
                 <p-button 

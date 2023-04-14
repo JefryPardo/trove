@@ -2,7 +2,7 @@ import { Item } from "./item";
 
 export interface SellItem {
     
-    id?:            number;
+    id?:            string;
     item:           Item;
     fechaRegistro:  string;
     precio:         number;

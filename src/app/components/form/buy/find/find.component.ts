@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { BuyItem } from 'src/app/model/buy.item';
+import { Inventory } from 'src/app/model/inventory';
 import { FirebaseApiService } from 'src/app/service/firebase.api.service';
+import { ToastService } from 'src/app/service/toast.service';
 
 @Component({
   selector: 'app-find-buy-item',
@@ -13,23 +15,16 @@ import { FirebaseApiService } from 'src/app/service/firebase.api.service';
 export class FindBuyItemComponent {
 
   selectedBuyItem: BuyItem[];
-  loading: boolean = true;
-
   formClave: FormGroup;
 
   constructor(
     private confirmationService: ConfirmationService,
     private fb: FormBuilder,
-    public trove: FirebaseApiService
+    public trove: FirebaseApiService,
+    private mensaje: ToastService
   ) {
 
     this.formClave = this.inicializarFormularioClave();
-
-    this.trove.getBuyItems().subscribe((response) => {
-
-      this.trove.buyItems = response;
-      this.loading = false;
-    });
   }
 
   inicializarFormularioClave(): FormGroup {
@@ -39,7 +34,12 @@ export class FindBuyItemComponent {
     });
   }
 
-  deleteBuyItem(item: any) {
+  loading() {
+
+    return !(this.trove.buyItems != undefined && this.trove.buyItems.length >= 0);
+  }
+
+  deleteBuyItem(buyItem: any) {
 
     this.confirmationService.confirm({
       accept: () => {
@@ -48,8 +48,20 @@ export class FindBuyItemComponent {
           
           this.formClave.reset();
 
-          let id: string = item.id; 
-          this.trove.deleteBuyItem(id);
+          let id: string = buyItem.item.id;
+          let inventario:Inventory | null = this.trove.getByIdItemInventory(id);
+          if(inventario == null || inventario == undefined) {
+        
+            this.mensaje.mostrarAlertaError("Error","El item NO tiene inventario.");
+            return;
+          };
+
+          inventario.unidades = inventario.unidades - buyItem.cantidad;
+          this.trove.updateInventory(inventario);
+          this.trove.deleteBuyItem(buyItem.id);
+        }else {
+          
+          this.mensaje.mostrarAlertaError(`No valido`,`Password NO valido`);
         }
       },
       reject: () => {return}

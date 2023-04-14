@@ -4,6 +4,7 @@
     
         <div class="field col-12">
                 
+            <label>item</label>
             <p-dropdown 
                 class="flex flex-column" 
                 formControlName="id_item"
@@ -22,6 +23,7 @@
 
         <div class="field col-12 md:col-6">
             
+            <label>Fehca registro</label>
             <p-calendar
                 formControlName="fecha_registro" 
                 class="flex flex-column w-full" 
@@ -31,24 +33,24 @@
 
         <div class="field col-12 md:col-6">
     
-            <input 
-                pInputText 
-                formControlName="precio" 
-                placeholder="Precio venta"
-                class="w-full" 
-                type="number"
-            />
+            <label>Precio</label>
+            <p-inputNumber 
+                inputId="integeronly" 
+                formControlName="precio"
+                class="w-full"
+                [style]="{width: '100%'}"
+            ></p-inputNumber>
         </div>
 
         <div class="field col-12">
     
-            <input 
-                pInputText 
-                type="number"
-                formControlName="cantidad" 
-                placeholder="Cantidad vendidad"
-                class="w-full" 
-            />
+            <label>Cantidad</label>
+            <p-inputNumber 
+                inputId="integeronly" 
+                formControlName="cantidad"
+                class="w-full"
+                [style]="{width: '100%'}"
+            ></p-inputNumber>
         </div>
 
         <div class="col-12 flex flex-wrap">
@@ -58,6 +60,7 @@
                 class="col-12 w-full px-0" 
                 [style]="{'width':'100%'}" 
                 label="Crear Venta"
+                [disabled]="buttonDisabled"
             ></p-button>
         </div>
 

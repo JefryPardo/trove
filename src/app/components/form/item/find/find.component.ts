@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
 import { Item } from 'src/app/model/item';
 import { FirebaseApiService } from 'src/app/service/firebase.api.service';
+import { ToastService } from 'src/app/service/toast.service';
 
 @Component({
   selector: 'app-find-create',
@@ -10,25 +11,30 @@ import { FirebaseApiService } from 'src/app/service/firebase.api.service';
   styleUrls: ['./find.component.css'],
   providers: [ConfirmationService, MessageService]
 })
-export class FindItemComponent {
+export class FindItemComponent implements OnInit {
 
   
   selectedItem: Item[];
-  loading: boolean = true;
-
   formClave: FormGroup;
 
-  constructor(private confirmationService: ConfirmationService,private fb: FormBuilder,public trove: FirebaseApiService) {
+  constructor(
+    private confirmationService: ConfirmationService,
+    private fb: FormBuilder,
+    public trove: FirebaseApiService,
+    private mensaje: ToastService
+  ) {
 
     this.formClave = this.inicializarFormularioClave();
-
-    this.trove.getItems().subscribe(response => {
-      
-      this.trove.items = response;
-      this.loading = false;
-    });
   }
+    
   
+  ngOnInit() {}
+  
+  loading() {
+
+    return !(this.trove.items != undefined && this.trove.items.length >= 0);
+  }
+
   deleteItem(item: any) {
 
     this.confirmationService.confirm({
@@ -40,11 +46,13 @@ export class FindItemComponent {
 
           let id: string = item.id; 
           this.trove.deleteItem(id);
+        }else {
+          this.mensaje.mostrarAlertaError("No valido","Password NO valido");
         }
       },
       reject: () => {
           
-        console.log('Salir');
+        
         return;
       }
     });

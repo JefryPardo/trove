@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Inventory } from 'src/app/model/inventory';
 import { Item } from 'src/app/model/item';
 import { SellItem } from 'src/app/model/sell.item';
 import { FirebaseApiService } from 'src/app/service/firebase.api.service';
+import { ToastService } from 'src/app/service/toast.service';
 
 @Component({
   selector: 'app-create-sell-item',
@@ -14,15 +16,15 @@ export class CreateSellItemComponent {
   formSellItem: FormGroup;
   hoy = new Date();
   selectedItem: Item;
+  buttonDisabled: boolean = false;
 
-  constructor(private fb: FormBuilder, public trove: FirebaseApiService) {
+  constructor(
+    private fb: FormBuilder, 
+    public trove: FirebaseApiService,
+    private mensaje: ToastService
+  ) {
 
     this.formSellItem = this.inicializarFormularioSellItem();
-
-    this.trove.getItems().subscribe(response => {
-      
-      this.trove.items = response;
-    });
   }
 
   inicializarFormularioSellItem(): FormGroup {
@@ -38,6 +40,7 @@ export class CreateSellItemComponent {
 
   async crearSellItem() {
 
+    this.buttonDisabled = true;
     if(
       this.formSellItem.value.id_item != undefined &&
       this.formSellItem.value.id_item != null &&
@@ -63,11 +66,34 @@ export class CreateSellItemComponent {
         cantidad:         this.formSellItem.value.cantidad,
         precioUnidad:     this.formSellItem.value.precio/this.formSellItem.value.cantidad
       }
-
+      
+      let inventario:Inventory | null = this.trove.getByIdItemInventory(this.formSellItem.value.id_item.id);
+      if(inventario == null || inventario == undefined) {
+      
+        this.buttonDisabled = false;
+        this.mensaje.mostrarAlertaError("Error","El item NO tiene inventario");
+        return
+      };
+      
+      if((inventario.unidades - sellItem.cantidad) < 0) {
+      
+        this.buttonDisabled = false;
+        this.mensaje.mostrarAlertaError("Superar el stock","Las unidades superar el stock actual");
+        return
+      };
+      
+      inventario.unidades = inventario.unidades - sellItem.cantidad;
+      
+      this.trove.updateInventory(inventario);
+      await this.trove.createSellItem(sellItem);
+      
       this.formSellItem.reset();
       this.hoy = new Date();
+      this.buttonDisabled = false;
+      this.mensaje.mostrarAlertaSuccess("OK","Se registro la venta correctamente");
+    }else {
 
-      await this.trove.createSellItem(sellItem);
+      this.mensaje.mostrarAlertaError("Campos no validos","Se requiere campos validos");
     }
   }
     

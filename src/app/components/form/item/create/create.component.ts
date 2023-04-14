@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Inventory } from 'src/app/model/inventory';
 import { Item } from 'src/app/model/item';
 import { FirebaseApiService } from 'src/app/service/firebase.api.service';
+import { ToastService } from 'src/app/service/toast.service';
 
 interface TipoItem {
   nombre: string;
@@ -17,8 +18,13 @@ export class CreateItemComponent {
 
   tipo: TipoItem[];
   formItem: FormGroup;
+  buttonDisabled: boolean = false;
 
-  constructor(private fb: FormBuilder, private trove: FirebaseApiService) {
+  constructor(
+    private fb: FormBuilder, 
+    private trove: FirebaseApiService,
+    private mensaje: ToastService
+  ) {
 
     this.formItem = this.inicializarFormularioItem();
 
@@ -53,48 +59,58 @@ export class CreateItemComponent {
 
   async crearItem() {
 
+    this.buttonDisabled = true;
+    if(
+      this.formItem.value.nombre == undefined       ||
+      this.formItem.value.tipo.nombre == undefined  ||
+      this.formItem.value.nombre == ''              ||
+      this.formItem.value.tipo.nombre == ''         ||
+      this.formItem.value.nombre == null            ||
+      this.formItem.value.tipo.nombre == null       ||
+      this.formItem.value.unidades == null          ||  
+      this.formItem.value.unidades == null          ||
+      this.formItem.value.unidades == undefined     ||
+      this.formItem.value.unidades == undefined     ||
+      this.formItem.value.unidades == ''            ||
+      this.formItem.value.unidades == ''            ||
+      this.formItem.value.stock == null             ||
+      this.formItem.value.stock == null             ||
+      this.formItem.value.stock == undefined        ||
+      this.formItem.value.stock == undefined        ||
+      this.formItem.value.stock == ''               ||
+      this.formItem.value.stock == ''               
+    ) {
     
-    if(this.formItem.value.nombre == undefined) return;
-    if(this.formItem.value.tipo.nombre == undefined) return;
-    if(this.formItem.value.nombre == '') return;
-    if(this.formItem.value.tipo.nombre == '') return;
-    if(this.formItem.value.nombre == null) return;
-    if(this.formItem.value.tipo.nombre == null) return;
-
-    if(this.formItem.value.unidades == null) return;
-    if(this.formItem.value.unidades == null) return;
-    if(this.formItem.value.unidades == undefined) return;
-    if(this.formItem.value.unidades == undefined) return;
-    if(this.formItem.value.unidades == '') return;
-    if(this.formItem.value.unidades == '') return;
+      this.buttonDisabled = false;
+      this.mensaje.mostrarAlertaError(`Campos NO validos`,`Se requiere campos validos`);
+      return
+    }
     
-    if(this.formItem.value.stock == null) return;
-    if(this.formItem.value.stock == null) return;
-    if(this.formItem.value.stock == undefined) return;
-    if(this.formItem.value.stock == undefined) return;
-    if(this.formItem.value.stock == '') return;
-    if(this.formItem.value.stock == '') return;
-    
-    
-    
-    if(!this.validarExistenciaItem()) return;
+    if(!this.validarExistenciaItem()) {
+      
+      this.buttonDisabled = false;
+      this.mensaje.mostrarAlertaError("El item ya existe","Ingrese otro nombre");
+      return
+    };
     
     const item: Item  = {
       nombre: this.formItem.value.nombre.trim(),
       tipo:   this.formItem.value.tipo.nombre.trim()
     }
     
+    let itemSave = await this.trove.createItem(item);
+    item.id = itemSave.id;
+    
     const inventory: Inventory  = {
       item:         item,
       unidades:     this.formItem.value.unidades,
       stock_maximo: this.formItem.value.stock
     }
-
-
-
+    
     this.formItem.reset();
-    await this.trove.createItem(item);
     await this.trove.createInventario(inventory);
+    this.buttonDisabled = false;
+    this.mensaje.mostrarAlertaSuccess("OK","Se registro el item");
   }
 
   validarExistenciaItem() {

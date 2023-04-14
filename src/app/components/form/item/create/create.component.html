@@ -30,6 +30,7 @@
                 pInputText 
                 formControlName="unidades" 
                 placeholder="Unidades de inventario"
+                type="number"
                 class="w-full" 
             />
         </div>
@@ -40,13 +41,20 @@
                 pInputText 
                 formControlName="stock" 
                 placeholder="Maximo unidades inventario"
+                type="number"
                 class="w-full" 
             />
         </div>
 
         <div class="col-12 flex flex-wrap">
     
-            <p-button (onClick)="crearItem()" class="col-12 w-full px-0" [style]="{'width':'100%'}" label="Crear"></p-button>
+            <p-button 
+                (onClick)="crearItem()" 
+                class="col-12 w-full px-0" 
+                [style]="{'width':'100%'}" 
+                label="Crear"
+                [disabled]="buttonDisabled"
+            ></p-button>
         </div>
     </div>
 </p-card>
