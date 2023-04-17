@@ -6,6 +6,7 @@ import { BuyItem } from '../model/buy.item';
 import { SellItem } from '../model/sell.item';
 import { Inventory } from '../model/inventory';
 import { Flipping } from '../model/flipping';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ export class FirebaseApiService {
     precio: 0
   }
 
-  constructor(private firestore: Firestore) {
+  constructor(private firestore: Firestore, private mensaje: ToastService) {
 
     this.getInventory().subscribe((response) => {
 
@@ -220,13 +221,25 @@ export class FirebaseApiService {
     this.flipping_mas_alto = this.defauld;
     this.flipping_mas_bajo = this.defauld;
 
+    if(this.flippings.length <= 0) {
+
+      this.mensaje.mostrarAlertaWarn("Sin registros","El item no tiene flipping.");
+      return;
+    }
+    
     this.flippings.forEach(f => {
       
       if(f.item.id == item.id) {
-
+        
         flipping_result.push(f);
       }
     });
+    
+    if(flipping_result.length <= 0) {
+      
+      this.mensaje.mostrarAlertaWarn("Sin registros","El item no tiene flipping.");
+      return;
+    }
 
     this.flipping_mas_alto = flipping_result.reduce((accumulator, current) => {
       return accumulator.precio > current.precio ? accumulator : current;

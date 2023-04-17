@@ -23,4 +23,12 @@ export class ToastService {
       {severity:'error', summary: mensajeError, detail: detalleError}
     );
   }
+
+  mostrarAlertaWarn(mensajeError: string, detalleError: string) {
+
+    this.messageService.add(
+
+      {severity:'warn', summary: mensajeError, detail: detalleError}
+    );
+  }
 }
