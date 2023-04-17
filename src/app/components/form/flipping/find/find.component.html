@@ -21,14 +21,14 @@
 
 <p-table
     #dt
-    [value]="this.trove.buyItems"
+    [value]="this.trove.flippings"
     dataKey="id"
-    [(selection)]="selectedBuyItem"
+    [(selection)]="selectedFlipping"
     [rows]="5"
     [showCurrentPageReport]="true"
     [loading]="loading()"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [globalFilterFields]="['nombre', 'tipo']"
+    [globalFilterFields]="['nombre']"
     [tableStyle]="{'min-width': '75rem'}"
     [scrollable]="true" 
     scrollHeight="400px"
@@ -53,35 +53,31 @@
     
     <ng-template pTemplate="header">
         <tr>
-            <th class="w-2">Item</th>
-            <th class="w-2">Date of purchase</th>
+            <th class="w-2">Name</th>
             <th class="w-2">Purchase price</th>
-            <th class="w-2">Amount</th>
-            <th class="w-2">Price by unit</th>
-            <th class="w-1">Delete</th>
+            <th class="w-2">Purchased amount</th>
+            <th class="w-2">Date</th>
+            <th class="w-1" >Delete</th>
         </tr>
     </ng-template>
     
-    <ng-template pTemplate="body" let-item>
+    <ng-template pTemplate="body" let-flipping>
         <tr>
             <td>
-                {{ item.item.nombre }}
+                {{ flipping.item.nombre }}
             </td>
             <td>
-                {{ trove.getFortmaroDate(item.fechaRegistro) }}
+                {{ flipping.precio }}
             </td>
             <td>
-                {{ item.precio | number }}
+                {{ flipping.cantidad }}
             </td>
             <td>
-                {{ item.cantidad | number }}
-            </td>
-            <td>
-                {{ item.precioUnidad | number }}
+                {{ trove.getFortmaroDate(flipping.fecha) }}
             </td>
             <td>
                 <p-button 
-                    (click)="deleteBuyItem(item)" 
+                    (click)="deleteFlipping(flipping)" 
                     icon="pi pi-trash" 
                     styleClass="p-button-raised p-button-danger"
                 ></p-button>

@@ -30,8 +30,24 @@ export class NavbarComponent {
       },
       {
         label: 'inventory',
-        icon: 'pi pi-chart-bar',
+        icon: 'pi pi-box',
         routerLink: ['/inventory']
+      },
+      {
+        label: 'flipping',
+        icon: 'pi pi-chart-line',
+        items: [
+            {
+              label: 'Flipping',
+              icon: 'pi pi-plus-circle',
+              routerLink: ['/flipping']
+            },
+            {
+              label: 'Search flipping',
+              icon: 'pi pi-search',
+              routerLink: ['/search_flipping']
+            }
+        ],
       }
     ];
   }

@@ -1,4 +1,4 @@
-<p-card header="Registrar compra">
+<p-card header="Register purchase">
     
     <div class="formgrid grid" [formGroup]="formBuyItem">
     
@@ -23,7 +23,7 @@
 
         <div class="field col-12 md:col-6">
             
-            <label>Fecha registro</label>
+            <label>Registration date</label>
             <p-calendar
                 formControlName="fecha_registro" 
                 class="flex flex-column w-full" 
@@ -33,7 +33,7 @@
 
         <div class="field col-12 md:col-6">
     
-            <label>Precio de compra</label>
+            <label>Purchase price</label>
             <p-inputNumber 
                 inputId="integeronly" 
                 formControlName="precio"
@@ -44,7 +44,7 @@
 
         <div class="field col-12">
             
-            <label>Cantidad comprada</label>
+            <label>Purchased amount</label>
             <p-inputNumber 
                 inputId="integeronly" 
                 formControlName="cantidad"
@@ -57,7 +57,7 @@
     
             <p-button 
                 [style]="{'width':'100%'}" 
-                label="Crear Compra"
+                label="Register purchase"
                 class="col-12 w-full px-0 p-button-success" 
                 (onClick)="crearBuyItem()"
                 styleClass="p-button-success"

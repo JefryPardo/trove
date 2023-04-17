@@ -1,0 +1,45 @@
+<div class="grid">
+
+    <div class="col-12">
+        <p-card header="Search flipping">
+            <div class="formgrid grid" [formGroup]="formFindItem">
+                
+                <div class="field col-12">
+            
+                    <label>Item</label>
+                    <p-dropdown 
+                        class="flex flex-column" 
+                        formControlName="id_item"
+                        [emptyFilterMessage]="'No se encontraron resultados'"
+                        [(ngModel)]="selectedItem" 
+                        [filter]="true" 
+                        filterBy="nombre"
+                        [showClear]="true" 
+                        [options]="this.trove.items" 
+                        placeholder="Item"
+                        optionLabel="nombre"
+                    >
+                    </p-dropdown>
+            
+                </div>
+            
+                <div class="col-12 flex flex-wrap">
+            
+                    <p-button 
+                        [style]="{width:'100%',background: 'var(--green-400)',color: 'rgb(255,255,245)', border: 'none'}" 
+                        label="Flipping"
+                        class="col-12 w-full px-0 p-button-success" 
+                        (onClick)="findItem()"
+                        styleClass="p-button-success"
+                        [disabled]="buttonDisabled"
+                    ></p-button>
+                </div>
+            
+            </div>
+        </p-card>
+    </div>
+</div>
+
+<div *ngIf="this.trove.resultadoFlipping">
+    <app-search-flipping-result></app-search-flipping-result>
+</div>

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FlippingComponent } from './flipping.component';
+import { SearchFlippingComponent } from './search-flipping.component';
 
-describe('FlippingComponent', () => {
-  let component: FlippingComponent;
-  let fixture: ComponentFixture<FlippingComponent>;
+describe('SearchFlippingComponent', () => {
+  let component: SearchFlippingComponent;
+  let fixture: ComponentFixture<SearchFlippingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlippingComponent ]
+      declarations: [ SearchFlippingComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FlippingComponent);
+    fixture = TestBed.createComponent(SearchFlippingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

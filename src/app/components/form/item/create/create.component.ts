@@ -106,10 +106,11 @@ export class CreateItemComponent {
       stock_maximo: this.formItem.value.stock
     }
     
-    this.formItem.reset();
     await this.trove.createInventario(inventory);
-    this.buttonDisabled = false;
     this.mensaje.mostrarAlertaSuccess("OK","Se registro el item");
+
+    this.formItem.reset();
+    this.buttonDisabled = false;
   }
 
   validarExistenciaItem() {

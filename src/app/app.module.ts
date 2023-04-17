@@ -41,6 +41,11 @@ import { ToastModule } from 'primeng/toast';
 
 import { ToastService } from './service/toast.service';
 import { MessageService } from 'primeng/api';
+import { FindComponent } from './components/form/flipping/find/find.component';
+import { ResultComponent } from './components/form/flipping-search/result/result.component';
+import { CreateComponent } from './components/form/flipping/create/create.component';
+import { FlippingSearchFindComponent } from './components/form/flipping-search/find/find.component';
+import { SearchFlippingComponent } from './components/search-flipping/search-flipping.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +64,11 @@ import { MessageService } from 'primeng/api';
     CreateSellItemComponent,
     FindSellItemComponent,
     FindInventoryComponent,
+    FindComponent,
+    ResultComponent,
+    FlippingSearchFindComponent,
+    CreateComponent,
+    SearchFlippingComponent,
   ],
   imports: [
     BrowserModule,

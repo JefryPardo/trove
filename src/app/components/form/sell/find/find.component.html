@@ -7,7 +7,7 @@
                 <input 
                     pInputText 
                     formControlName="clave" 
-                    placeholder="Ingrese la clave"
+                    placeholder="Enter password"
                     class="w-full" 
                 />
             </div>
@@ -45,7 +45,7 @@
                     type="text" 
                     class="w-full" 
                     (input)="dt.filterGlobal($event.target.value, 'contains')" 
-                    placeholder="Buscar" 
+                    placeholder="Search" 
                 />
             </span>
         </div>
@@ -54,11 +54,11 @@
     <ng-template pTemplate="header">
         <tr>
             <th class="w-2">Item</th>
-            <th class="w-2">Fecha compra</th>
-            <th class="w-2">Precio compra</th>
-            <th class="w-2">Cantidad</th>
-            <th class="w-2">Precio unidad</th>
-            <th class="w-1">Borrar</th>
+            <th class="w-2">Date of purchase</th>
+            <th class="w-2">Sale price</th>
+            <th class="w-2">Amount</th>
+            <th class="w-2">Price by unit</th>
+            <th class="w-1">Delete</th>
         </tr>
     </ng-template>
     

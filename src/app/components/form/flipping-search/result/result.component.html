@@ -1,0 +1,43 @@
+<div class="grid">
+
+    <div class="col-12">
+                    
+        <p-card 
+            [style]="{background: 'var(--red-300)',color: 'rgb(255,255,245)'}" 
+            header="Highest price recorded"
+        >
+    
+            <p class="m-0 p-0 text-2xl flex align-items-center justify-content-center">
+                {{this.trove.flipping_mas_alto.precio | number}}
+            </p>
+        </p-card>
+    </div>
+
+    <div class="col-12">
+        
+        <p-card [style]="{background: 'var(--green-400)',color: 'rgb(255,255,245)'}" header="Lowest price recorded">
+        
+            <p class="m-0 p-0 text-justify text-2xl flex align-items-center justify-content-center">
+                {{this.trove.flipping_mas_bajo.precio | number}}
+            </p>
+        </p-card>
+    </div>
+    
+    <div class="col-6">
+        
+        <p-card [style]="{background: 'var(--red-300)',color: 'rgb(255,255,245)'}" header="Date">
+            <p class="m-0 p-0 text-justify text-sm">
+                {{trove.getFortmaroDate(this.trove.flipping_mas_alto.fecha)}}
+            </p>
+        </p-card>
+    </div>
+    
+    <div class="col-6">
+        
+        <p-card [style]="{background: 'var(--green-400)',color: 'rgb(255,255,245)'}" header="Date">
+            <p class="m-0 p-0 text-justify text-sm">
+                {{trove.getFortmaroDate(this.trove.flipping_mas_bajo.fecha)}}
+            </p>
+        </p-card>
+    </div>
+</div>
