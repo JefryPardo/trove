@@ -3,7 +3,8 @@ import { Item } from "./item";
 export interface Flipping {
     id?: string;
     item: Item;
-    precio: number;
+    precioUnidad: number;
+    precioTotal: number;
     cantidad: number;
     fecha: string;
 }

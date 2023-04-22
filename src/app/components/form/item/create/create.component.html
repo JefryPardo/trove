@@ -17,13 +17,14 @@
             <label>Item type</label>
             <p-dropdown 
                 class="flex flex-column" 
+                placeholder="Type"
                 formControlName="tipo"
                 id="tipo" 
                 [options]="tipo" 
                 optionLabel="nombre"
             ></p-dropdown>
         </div>
-
+        
         <div class="field col-12 md:col-6">
     
             <label>Units</label>
@@ -44,6 +45,19 @@
                 class="w-full"
                 [style]="{width: '100%'}"
             ></p-inputNumber>
+        </div>
+
+        <div class="field col-12">
+    
+            <label>Level flipping</label>
+            <p-dropdown 
+                class="flex flex-column" 
+                formControlName="nivelFlipping"
+                placeholder="Level"
+                id="nivel" 
+                [options]="level" 
+                optionLabel="level"
+            ></p-dropdown>
         </div>
 
         <div class="col-12 flex flex-wrap">

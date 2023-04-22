@@ -8,9 +8,7 @@ import { FirebaseApiService } from 'src/app/service/firebase.api.service';
 })
 export class ResultComponent implements OnDestroy {
 
-  constructor(public trove: FirebaseApiService) {
-
-  }
+  constructor(public trove: FirebaseApiService) {}
   
   ngOnDestroy() {
     this.trove.flipping_mas_bajo = this.trove.defauld;

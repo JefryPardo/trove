@@ -4,33 +4,45 @@ import { Flipping } from 'src/app/model/flipping';
 import { Item } from 'src/app/model/item';
 import { FirebaseApiService } from 'src/app/service/firebase.api.service';
 import { ToastService } from 'src/app/service/toast.service';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-flipping-create',
   templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css']
+  styleUrls: ['./create.component.scss']
 })
 export class CreateComponent {
 
-  selectedItem: Item;
+  
+
   formCreateFlipping: FormGroup;
   buttonDisabled: boolean = false;
   hoy = new Date();
 
+  
+
   constructor(
     private fb: FormBuilder, 
     public trove: FirebaseApiService,
-    private mensaje: ToastService
+    private mensaje: ToastService,
+    private clipboard: Clipboard
   ){
 
     this.formCreateFlipping = this.inicializarFormularioFlippin();
   }
 
+
+  copyText() {
+    this.clipboard.copy(this.trove.selectedItemCopy.nombre);
+  }
+  
+  
+
   inicializarFormularioFlippin(): FormGroup {
 
     return this.fb.group({
       'id_item':          new FormControl("", Validators.required),
-      'precio':           new FormControl("", Validators.required),
+      'precioUnidad':           new FormControl("", Validators.required),
       'cantidad':         new FormControl("", Validators.required),
       'fecha_registro': new FormControl(this.hoy, Validators.required),
     });
@@ -39,14 +51,11 @@ export class CreateComponent {
   async crearFlipping() {
 
     if(
-      this.formCreateFlipping.value.id_item == undefined   ||
-      this.formCreateFlipping.value.precio == undefined    ||
+      this.formCreateFlipping.value.precioUnidad == undefined    ||
       this.formCreateFlipping.value.cantidad == undefined  ||
-      this.formCreateFlipping.value.id_item == null        ||
-      this.formCreateFlipping.value.precio == null         ||
+      this.formCreateFlipping.value.precioUnidad == null         ||
       this.formCreateFlipping.value.cantidad == null       ||
-      this.formCreateFlipping.value.id_item == ''          ||
-      this.formCreateFlipping.value.precio == ''           ||
+      this.formCreateFlipping.value.precioUnidad == ''           ||
       this.formCreateFlipping.value.cantidad == ''
     ) {
 
@@ -55,20 +64,22 @@ export class CreateComponent {
       return
     }
 
-    const item: Item  = {
-      id: this.formCreateFlipping.value.id_item.id,
-      nombre: this.formCreateFlipping.value.id_item.nombre,
-      tipo:   this.formCreateFlipping.value.id_item.tipo
-    }
+    const item: Item  = this.trove.selectedItemCopy;
     
-    const fecha:Date = this.formCreateFlipping.value.fecha_registro;
+    const fecha       : Date    = this.formCreateFlipping.value.fecha_registro;
+    const precioUnidad: number  = this.formCreateFlipping.value.precioUnidad;
+    const cantidad    : number  = this.formCreateFlipping.value.cantidad;
+    const precioTotal : number  = (cantidad*precioUnidad);
 
     const flipping: Flipping  = {
-      item:       item,
-      precio:     this.formCreateFlipping.value.precio,
-      cantidad:   this.formCreateFlipping.value.cantidad,
-      fecha:      fecha.toLocaleString(),
+      item:         item,
+      precioUnidad: precioUnidad,
+      precioTotal:  precioTotal,
+      cantidad:     cantidad,
+      fecha:        fecha.toLocaleString(),
     }
+
+    console.log(flipping);
 
     await this.trove.createFlipping(flipping);
     this.mensaje.mostrarAlertaSuccess("OK","Se registro el flipping");

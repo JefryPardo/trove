@@ -8,7 +8,7 @@
         >
     
             <p class="m-0 p-0 text-2xl flex align-items-center justify-content-center">
-                {{this.trove.flipping_mas_alto.precio | number}}
+                {{this.trove.flipping_mas_alto.precioUnidad | number}}
             </p>
         </p-card>
     </div>
@@ -18,7 +18,7 @@
         <p-card [style]="{background: 'var(--green-400)',color: 'rgb(255,255,245)'}" header="Lowest price recorded">
         
             <p class="m-0 p-0 text-justify text-2xl flex align-items-center justify-content-center">
-                {{this.trove.flipping_mas_bajo.precio | number}}
+                {{this.trove.flipping_mas_bajo.precioUnidad | number}}
             </p>
         </p-card>
     </div>

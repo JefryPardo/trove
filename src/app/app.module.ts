@@ -46,6 +46,7 @@ import { ResultComponent } from './components/form/flipping-search/result/result
 import { CreateComponent } from './components/form/flipping/create/create.component';
 import { FlippingSearchFindComponent } from './components/form/flipping-search/find/find.component';
 import { SearchFlippingComponent } from './components/search-flipping/search-flipping.component';
+import { RippleModule } from 'primeng/ripple';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { SearchFlippingComponent } from './components/search-flipping/search-fli
     CalendarModule,
     InputNumberModule,
     ToastModule,
+    RippleModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore())
   ],

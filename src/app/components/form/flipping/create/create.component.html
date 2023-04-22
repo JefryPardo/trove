@@ -1,31 +1,34 @@
+<p-card>
+    
+    <div (click)="copyText()" class="card card-container flex justify-content-center align-items-center">
+        <div pRipple class="card flex select-none justify-content-center align-items-center shadow-2">{{this.trove.selectedItemCopy.nombre}}</div>
+    </div>
+
+    <br>
+
+    <div class="grid">
+        <div class="col-10 col-offset-1 md:col-6 md:col-offset-3 flex justify-content-center flex-wrap">
+            <p-button class="m-1" (click)="this.trove.level()" styleClass="p-button-warning">{{this.trove.levelSelect}}</p-button>
+            <p-button class="m-1" [disabled]="this.trove.estadoLeft" (onClick)="this.trove.leftBoton()" icon="pi pi-angle-left"></p-button>
+            <p-button class="m-1" [disabled]="this.trove.estadoRight" (onClick)="this.trove.rightBoton()" icon="pi pi-angle-right"></p-button>
+        </div>
+    </div>
+
+</p-card>
+
+<br>
+
 <p-card header="Register of flipping">
+
+
     <div class="formgrid grid" [formGroup]="formCreateFlipping">
 
         <div class="field col-12">
-    
-            <label>Item</label>
-            <p-dropdown 
-                class="flex flex-column" 
-                formControlName="id_item"
-                [emptyFilterMessage]="'No se encontraron resultados'"
-                [(ngModel)]="selectedItem" 
-                [filter]="true" 
-                filterBy="nombre"
-                [showClear]="true" 
-                [options]="this.trove.items" 
-                placeholder="Item"
-                optionLabel="nombre"
-            >
-            </p-dropdown>
-    
-        </div>
 
-        <div class="field col-12">
-
-            <label>Price</label>
+            <label>Price by unit</label>
             <p-inputNumber 
                 inputId="integeronly" 
-                formControlName="precio"
+                formControlName="precioUnidad"
                 [minFractionDigits]="1"
                 class="w-full"
                 [style]="{width: '100%'}"
@@ -34,7 +37,7 @@
 
         <div class="field col-12">
             
-            <label>Amount</label>
+            <label>Purchased units</label>
             <p-inputNumber 
                 inputId="integeronly" 
                 formControlName="cantidad"

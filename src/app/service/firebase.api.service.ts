@@ -26,18 +26,48 @@ export class FirebaseApiService {
 
   resultadoFlipping: boolean = false;
 
+  estadoLeft  : boolean = true;
+  estadoRight : boolean = true;
+
+  itemLevelSelect: Item[] = [];
+  selectedItem: Item;
+  
+  selectedItemCopy: Item = {
+    id: '0',
+    nombre: 'no found',
+    tipo: 'no found',
+    nivelFlipping: 'no found'
+  };
+
+  levelSelect: String = '3';
+
+  left: number;
+  right: number;
+
+
   defauld = {
     item: {
       id: '0',
       nombre: 'no found',
-      tipo: 'no found'
+      tipo: 'no found',
+      nivelFlipping: 'no found'
     },
     cantidad: 0,
+    precioTotal: 0,
+    precioUnidad: 0,
+    pr: 0,
     fecha: 'no found',
     precio: 0
   }
 
   constructor(private firestore: Firestore, private mensaje: ToastService) {
+
+    this.getItems().subscribe(response => {
+      
+      console.log('items');
+      this.items = response;
+      this.level();
+    });
 
     this.getInventory().subscribe((response) => {
 
@@ -45,11 +75,6 @@ export class FirebaseApiService {
       this.inventory = response;
     });
     
-    this.getItems().subscribe(response => {
-      
-      console.log('items');
-      this.items = response;
-    });
     
     this.getBuyItems().subscribe((response) => {
       
@@ -71,6 +96,7 @@ export class FirebaseApiService {
 
     this.flipping_mas_alto = this.defauld;
     this.flipping_mas_bajo = this.defauld;
+    
   }
 
   // Items api
@@ -242,13 +268,84 @@ export class FirebaseApiService {
     }
 
     this.flipping_mas_alto = flipping_result.reduce((accumulator, current) => {
-      return accumulator.precio > current.precio ? accumulator : current;
+      return accumulator.precioUnidad > current.precioUnidad ? accumulator : current;
     });
     
     this.flipping_mas_bajo = flipping_result.reduce((accumulator, current) => {
-      return accumulator.precio < current.precio ? accumulator : current;
+      return accumulator.precioUnidad < current.precioUnidad ? accumulator : current;
     });
 
     this.resultadoFlipping = true;
+  }
+
+
+
+
+  level() {
+
+    switch(this.levelSelect){
+
+      case '1': { 
+
+        this.levelSelect = '2';  
+        break; 
+      } 
+     case '2': { 
+      
+      this.levelSelect = '3';
+      break; 
+     }
+     case '3': { 
+      
+      this.levelSelect = '1'; 
+      break; 
+     }
+    }
+
+    this.itemLevelSelect = [];
+
+    this.items.forEach(item => {
+
+      if(item.nivelFlipping == this.levelSelect) {
+
+        this.itemLevelSelect.push(item);
+      }
+
+    });
+
+    if(this.itemLevelSelect.length == 0){return;}
+
+    this.estadoRight = false;
+    this.estadoLeft  = true;
+
+    this.left = 0;
+    this.right = this.itemLevelSelect.length-1;
+
+    this.selectedItemCopy = this.itemLevelSelect[0]; 
+  }
+
+  leftBoton() {
+
+    this.left = this.left-1;
+
+    this.estadoRight = false;
+    if(this.left == 0) {
+
+      this.estadoLeft = true;
+    }
+
+    this.selectedItemCopy = this.itemLevelSelect[this.left]; 
+  }
+  rightBoton() {
+
+    this.left = this.left+1;
+    this.estadoLeft = false;
+
+    if(this.left == this.right) {
+
+      this.estadoRight = true;
+    }
+
+    this.selectedItemCopy = this.itemLevelSelect[this.left]; 
   }
 }

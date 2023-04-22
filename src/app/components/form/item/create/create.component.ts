@@ -8,6 +8,9 @@ import { ToastService } from 'src/app/service/toast.service';
 interface TipoItem {
   nombre: string;
 }
+interface Level {
+  level: string;
+}
 
 @Component({
   selector: 'app-create-item',
@@ -17,6 +20,7 @@ interface TipoItem {
 export class CreateItemComponent {
 
   tipo: TipoItem[];
+  level: Level[];
   formItem: FormGroup;
   buttonDisabled: boolean = false;
 
@@ -45,6 +49,12 @@ export class CreateItemComponent {
       { nombre: 'Tomes' },
       { nombre: 'Wings' }
     ];
+
+    this.level = [
+      { level:  '1' },
+      { level:  '2' },
+      { level:  '3' }
+    ];
   }
 
   inicializarFormularioItem(): FormGroup {
@@ -52,12 +62,15 @@ export class CreateItemComponent {
     return this.fb.group({
       'nombre':         new FormControl("", Validators.required),
       'tipo':           new FormControl("", Validators.required),
+      'nivelFlipping':           new FormControl("", Validators.required),
       'unidades':       new FormControl("", Validators.required),
       'stock':          new FormControl("", Validators.required)
     });
   }
 
   async crearItem() {
+
+    console.log(this.formItem.value);
 
     this.buttonDisabled = true;
     if(
@@ -71,7 +84,10 @@ export class CreateItemComponent {
       this.formItem.value.unidades == null          ||
       this.formItem.value.unidades == undefined     ||
       this.formItem.value.unidades == undefined     ||
-      this.formItem.value.unidades.length <= 0       ||
+      this.formItem.value.nivelFlipping == null     ||  
+      this.formItem.value.nivelFlipping == ''       ||
+      this.formItem.value.nivelFlipping == undefined  ||
+      this.formItem.value.unidades.length <= 0        ||
       this.formItem.value.stock == null             ||
       this.formItem.value.stock == null             ||
       this.formItem.value.stock == undefined        ||
@@ -94,7 +110,8 @@ export class CreateItemComponent {
     
     const item: Item  = {
       nombre: this.formItem.value.nombre.trim(),
-      tipo:   this.formItem.value.tipo.nombre.trim()
+      tipo:   this.formItem.value.tipo.nombre.trim(),
+      nivelFlipping:   this.formItem.value.tipo.nombre.trim()
     }
     
     let itemSave = await this.trove.createItem(item);
