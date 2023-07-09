@@ -47,6 +47,7 @@ import { CreateComponent } from './components/form/flipping/create/create.compon
 import { FlippingSearchFindComponent } from './components/form/flipping-search/find/find.component';
 import { SearchFlippingComponent } from './components/search-flipping/search-flipping.component';
 import { RippleModule } from 'primeng/ripple';
+import { CalculatorComponent } from './components/calculator/calculator.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { RippleModule } from 'primeng/ripple';
     FlippingSearchFindComponent,
     CreateComponent,
     SearchFlippingComponent,
+    CalculatorComponent,
   ],
   imports: [
     BrowserModule,

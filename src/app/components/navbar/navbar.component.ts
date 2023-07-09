@@ -48,6 +48,11 @@ export class NavbarComponent {
               routerLink: ['/search_flipping']
             }
         ],
+      },
+      {
+        label: 'calculator',
+        icon: 'pi pi-box',
+        routerLink: ['/calculator']
       }
     ];
   }

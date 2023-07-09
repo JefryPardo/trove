@@ -1,0 +1,191 @@
+<div class="grid grid-nogutter mt-4">
+    <div class="col-10 col-offset-1 md:col-8 md:col-offset-2">
+        
+        <div class="grid">
+
+            <div class="col-12">
+
+                <p-card header="Calculadora">
+    
+                    <div class="formgrid grid" [formGroup]="formCalculator">
+                    
+                        <div class="field col-12">
+                    
+                            <label>Cantidad</label>
+                            <p-inputNumber 
+                                inputId="integeronly" 
+                                formControlName="cantidad"
+                                class="w-full"
+                                [style]="{width: '100%'}"
+                            ></p-inputNumber>
+                        </div>
+                
+                        <div class="field col-12">
+                    
+                            <label>Precio unidad</label>
+                            <p-inputNumber 
+                                inputId="integeronly" 
+                                formControlName="precio_unidad"
+                                class="w-full"
+                                [style]="{width: '100%'}"
+                            ></p-inputNumber>
+                        </div>
+                
+                        <div class="col-12 flex flex-wrap">
+                    
+                            <p-button 
+                                (onClick)="calcular()"
+                                class="col-12 w-full px-0" 
+                                [style]="{'width':'100%'}" 
+                                label="Calcular"
+                            ></p-button>
+                        </div>
+                
+                    </div>
+                </p-card>
+
+                <br>
+
+                <div *ngIf="ver_precio_mas_impuesto">
+                    
+                    <div class="grid">
+
+                        <div class="col-6">
+                            
+                            <p-card header="Precio normal">
+                                <p class="m-0 p-0 text-justify text-sm">
+                                    {{ this.total_precio | number }}
+                                </p>
+                            </p-card>
+                        </div>
+                        
+                        <div class="col-6">
+                            
+                            <p-card header="Precio con impuestos">
+                                <p class="m-0 p-0 text-justify text-sm">
+                                    {{ this.total_precio_mas_impuesto | number }}
+                                </p>
+                            </p-card>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <p-card header="Calculadora venta">
+    
+                        <div class="formgrid grid" [formGroup]="formCalculatorVenta">
+                        
+                            <div class="field col-12">
+                        
+                                <label>Unidades</label>
+                                <p-inputNumber 
+                                    inputId="integeronly" 
+                                    formControlName="unidades_venta"
+                                    class="w-full"
+                                    [style]="{width: '100%'}"
+                                ></p-inputNumber>
+                            </div>
+                            
+                            <div class="field col-12">
+                        
+                                <label>Precio unidad venta</label>
+                                <p-inputNumber 
+                                    inputId="integeronly" 
+                                    formControlName="precio_unidad_venta"
+                                    class="w-full"
+                                    [style]="{width: '100%'}"
+                                ></p-inputNumber>
+                            </div>
+
+                            <div class="field col-12">
+                        
+                                <label>Taxas fijas</label>
+                                <p-inputNumber 
+                                    inputId="integeronly" 
+                                    formControlName="taxa_fija"
+                                    class="w-full"
+                                    [style]="{width: '100%'}"
+                                ></p-inputNumber>
+                            </div>
+
+                            <div class="col-12 flex flex-wrap">
+                        
+                                <p-button 
+                                    (onClick)="calcularVenta()"
+                                    class="col-12 w-full px-0" 
+                                    [style]="{'width':'100%'}" 
+                                    label="Calcular venta"
+                                ></p-button>
+                            </div>
+                    
+                        </div>
+                    </p-card>
+                </div>
+
+                <br>
+
+                <div *ngIf="ver_calculo_total">
+
+                    <div class="grid">
+
+                        <div class="col-12">
+                            
+                            <p-card header="nro publicaciones">
+                                <p class="m-0 p-0 text-justify text-sm">
+                                    {{ this.nro_publicaciones | number }}
+                                </p>
+                            </p-card>
+                        </div>
+                        
+                        <div class="col-12">
+                            
+                            <p-card header="Precio total publicaciones">
+                                <p class="m-0 p-0 text-justify text-sm">
+                                    {{ this.precio_total_publicaciones | number }}
+                                </p>
+                            </p-card>
+                        </div>
+                        
+                        <div class="col-12">
+                            
+                            <p-card header="precio total venta sin aplicar impuestos">
+                                <p class="m-0 p-0 text-justify text-sm">
+                                    {{ this.precio_total_venta | number }}
+                                </p>
+                            </p-card>
+                        </div>
+                        
+                        <div class="col-12">
+                            
+                            <p-card header="Precio total venta con impuestos aplicados">
+                                <p class="m-0 p-0 text-justify text-sm">
+                                    {{ this.precio_total_venta_menos_impuestos | number }}
+                                </p>
+                            </p-card>
+                        </div>
+                        
+                        <div class="col-12">
+                            
+                            <p-card header="Valor total al vender todo">
+                                <p class="m-0 p-0 text-justify text-sm">
+                                    {{ this.calculo_total | number }}
+                                </p>
+                            </p-card>
+                        </div>
+                        
+                        <div class="col-12">
+                            
+                            <p-card header="Ganancia">
+                                <p class="m-0 p-0 text-justify text-sm">
+                                    {{ this.ganancia | number }}
+                                </p>
+                            </p-card>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
